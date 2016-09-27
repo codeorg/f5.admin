@@ -173,11 +173,11 @@ define(["dateFormat"],function (dateFormat) {
         var setLS = function (key, value) {
             if (!isSupported) return;
             if (!value) {
-                value = null;
+                value = "";
             } else if (typeof value != "string") {
                 value = JSON.stringify(value);
             }
-            value = encodeUrl(value);
+            //value = encodeUrl(value);
             if (webStorage) {
                 webStorage.setItem(deriveQualifiedKey(key), value);
             }
@@ -186,7 +186,7 @@ define(["dateFormat"],function (dateFormat) {
         var getLS = function (key) {
             if (!isSupported) return null;
             var item = webStorage ? webStorage.getItem(deriveQualifiedKey(key)) : null;
-            item = decodeUrl(item);
+            //item = decodeUrl(item);
             if (!item || item === 'null') {
                 return null;
             }
@@ -603,6 +603,8 @@ define(["dateFormat"],function (dateFormat) {
         }
     }
     //-------copy对象　结束-----------------------------------------------------------------
+
+
 
     return {
         toInt:toInt,

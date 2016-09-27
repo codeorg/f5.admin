@@ -17,7 +17,7 @@ define([
          .factory( 'remote', ['$resource',function($resource) {
              function dbFactory(_type){
                  var obj = {},
-                     host="http://127.0.0.1:3000/",
+                     host="http://www.codeorg.com:3000/",
                      fns = [
                          "find",
                          "findOne",
@@ -36,9 +36,10 @@ define([
                                  cb = query;
                                  query = {};
                              }
-                             query._cmd = fn_name;
-                             query._module = module;
-                             //console.log(query)
+                             utility.ls.set("sid","sssssssss");
+                             query._bid=utility.bid||"";
+                             var sid=utility.ls.get("sid")||"";
+                             if(sid)query._sid=sid;
                              var resource = $resource(host+_type.name+'/:m/:c', {m: '@m', c: '@c'});
                             return resource.save({m: module, c: fn_name}, query, function (res) {
                                  cb(res);

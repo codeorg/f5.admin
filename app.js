@@ -3,6 +3,10 @@
  */
 "use strict";
 let env = process.env.NODE_ENV || 'production';
+console.log(env)
+env="dev";
+
+console.log(env)
 let root=(env=="production")?"dist":"src";
 let port=5000;
 let Koa = require('koa');

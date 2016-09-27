@@ -36,7 +36,7 @@ require([
                 //$httpProvider.defaults.useXDomain = true;
                 //delete $httpProvider.defaults.headers.common['X-Requested-With'];
                 $httpProvider.interceptors.push('httpHandle');
-                $urlRouterProvider.otherwise('/def');
+                $urlRouterProvider.otherwise('/login');
                 cfpLoadingBarProvider.includeSpinner = false;
                 $locationProvider.html5Mode(true);
             }])
@@ -45,27 +45,17 @@ require([
                 request: function (req) {
                     req.headers = req.headers || {};
                     //第一个字母必须大写如：Token,Sokey
-                    req.headers["Token"] = utility.bid;
+                    //req.headers["Token"] = "test";
+                    //请求是可以通过
                     return req;
                 },
                 response: function (res) {
                     if(res.data&&typeof res.data==="object"){
-                        if(res.headers('Token')){
-                            utility.ls.set('token',res.headers('Token'));
-                            console.log(res.headers('Token'));
-                        }
-                        //console.log(res);
-                        //alert(response.cookies)
-                        //var d=response.data;
-                        //if(d.err&&d.err==101){
-                        //  $q.reject(response);
-                        //  statego($injector,codeorg);
-                        //}else if(codeorg.cookie.get('m')){
-                        //  var m=codeorg.ls.get('m');
-                        //  angular.extend(m,codeorg.cookie.get('m'));
-                        //  codeorg.ls.set('m',m);
-                        //  codeorg.cookie.remove('m');
-                        //}
+                        //获取不到
+                        // if(res.headers('Token')){
+                        //     utility.ls.set('token',res.headers('Token'));
+                        //     console.log(res.headers('Token'));
+                        // }
                     }
                     return res || $q.when(res);
                 },
