@@ -36,6 +36,6 @@ require.config({
         "xeditable" : ["angular","css!/css/xeditable.css"]
     },
     "deps":["app"],
-    "urlArgs": "bust=1.0.0"
+    "urlArgs": "bust=1.0.1"
 });
 
