@@ -1,8 +1,9 @@
 
 define([
     'angular',
+    'utility',
     'ui.router'
-], function (angular) {
+], function (angular,utility) {
     'use strict';
     var app = angular.module('router', [
         'ui.router'
@@ -92,26 +93,9 @@ define([
 
             return function (modules) {
                 var mods=[];
-                if (!Array.prototype.indexOf) {
-                    Array.prototype.indexOf = function (elt /*, from*/) {
-                        var len = this.length >>> 0;
-                        var from = Number(arguments[1]) || 0;
-                        from = (from < 0)
-                            ? Math.ceil(from)
-                            : Math.floor(from);
-                        if (from < 0)
-                            from += len;
-                        for (; from < len; from++) {
-                            if (from in this &&
-                                this[from] === elt)
-                                return from;
-                        }
-                        return -1;
-                    };
-                }
                 function loadModules(modulesToLoad) {
                     angular.forEach(modulesToLoad, function (module) {
-                        if (mods.indexOf(module) == -1) {
+                        if (utility.indexOf(mods,module) == -1) {
                             mods.push(module);
                         }
                         var moduleFn = angular.module(module);
@@ -121,33 +105,7 @@ define([
                     })
                 }
                 loadModules(modules); //加载所有，包括依赖的
-                /*    angular.forEach(modules, function (item){
-                 try {
-                 var module = angular.module(item);
-                 if (!module) return;
-
-                 if (module.requires && module.requires.length > 0) {
-                 for (var i in module.requires) {
-                 if (mods.indexOf(module.requires[i]) == -1) {
-                 mods.push(module.requires[i]);
-                 }
-                 }
-                 }
-
-                 if (mods.indexOf(item) == -1) {
-                 mods.push(item);
-                 }
-
-                 } catch (ex) {
-                 if (ex.message) {
-                 ex.message += ' from ' + item;
-                 $log.error(ex.message);
-                 }
-                 throw ex
-                 }
-                 })*/
                 modules=mods;
-
                 angular.forEach(modules, function (item, module) {
                     try {
                         if (!injected[item] && (module = angular.module(item))) {

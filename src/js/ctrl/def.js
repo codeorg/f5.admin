@@ -4,7 +4,7 @@ define(['angular','router','utility','service'],
         module.requires.push('service');
         module.controller("def", ['$scope', '$state', '$stateParams', 'http', function ($scope, $state, $stateParams, http) {
             $scope.test=  utility.date();
-                http.demo.test(function (res) {
+                http.demo.test({sss:1,dsfsd:{like:"you"}},function (res) {
                 $scope.test= res;
             });
         }]);

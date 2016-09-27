@@ -71,7 +71,7 @@ define([
 
          }])
          .factory('http',['remote',function(remote){
-             return remote({name:"web"});
+             return remote({name:"admin"});
          }])
     /**
      * 重复数据验证

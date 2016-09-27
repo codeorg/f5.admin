@@ -605,6 +605,13 @@ define(["dateFormat"],function (dateFormat) {
     //-------copy对象　结束-----------------------------------------------------------------
 
 
+    var indexOf=function (arr, findObj) {
+        if(!arr||arr.length==0) return -1;
+        for (var i=0;i<arr.length;i++) {
+            if(arr[i]==findObj)return i;
+        }
+        return -1;
+    }
 
     return {
         toInt:toInt,
@@ -618,6 +625,7 @@ define(["dateFormat"],function (dateFormat) {
         formatObj:formatObj,
         formatIp:formatIp,
         formatMoney:formatMoney,
+        indexOf:indexOf,
         date:date,
         dayTime:dayTime,
         setDay:setDay,
