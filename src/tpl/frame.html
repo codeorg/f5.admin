@@ -1,291 +1,66 @@
-
-<div class="desktop-detected" ng-class="{'minified':leftMinified,'hidden-menu':leftMinimal}">
-
-    <!-- ui-view container -->
-
-    <!-- uiView: root -->
-    <div >
-        <!-- HEADER -->
-        <header id="header" class="">
-            <div id="logo-group">
-
-                <!-- PLACE YOUR LOGO HERE -->
-                <span id="logo"> <img src="./img/admin/logo.png" alt="codeorg"> </span>
-                <!-- END LOGO PLACEHOLDER -->
-
-                <!-- Note: The activity badge color changes when clicked and resets the number to 0
-                Suggestion: You may want to set a flag when this happens to tick off all checked messages / notifications -->
-
-                <div class="ajax-dropdown" >
-
-                    <!-- the ID links are fetched via AJAX to the ajax container "ajax-notifications" -->
-                    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <!-- ngRepeat: (key, type) in activities.types --><label class="btn btn-default ng-binding ng-scope" ng-class="{active : isActive(type.name)}"  ng-repeat="(key, type) in activities.types" ng-click="setTab(type.name)">
-                        <input type="radio" name="activity">
-                        Msgs (14)
-                    </label><!-- end ngRepeat: (key, type) in activities.types --><label class="btn btn-default ng-binding ng-scope" ng-class="{active : isActive(type.name)}"  ng-repeat="(key, type) in activities.types" ng-click="setTab(type.name)">
-                        <input type="radio" name="activity">
-                        Notify (3)
-                    </label><!-- end ngRepeat: (key, type) in activities.types --><label class="btn btn-default ng-binding ng-scope" ng-class="{active : isActive(type.name)}"  ng-repeat="(key, type) in activities.types" ng-click="setTab(type.name)">
-                        <input type="radio" name="activity">
-                        Tasks (4)
-                    </label><!-- end ngRepeat: (key, type) in activities.types -->
-                    </div>
-
-                    <!-- notification content -->
-                    <div class="ajax-notifications custom-scroll" ng-switch="activeTab">
-
-                        <div smart-include="build/components/activities/tabs/tab-default.html" ng-switch-when="default" class="ng-scope">
-                            <div class="alert alert-transparent">
-                                <h4>Click a button to show messages here</h4>
-                                This blank page message helps protect your privacy, or you can show the first message here automatically.
-                            </div>
-
-                            <i class="fa fa-lock fa-4x fa-border"></i>
-                        </div>
-                    </div>
-                    <!-- end notification content -->
-
-
-
-                </div>
-            </div>
-
-
-            <div class="project-context hidden-xs dropdown">
-
-                <span class="label ng-binding"></span>
-                <span class="project-selector dropdown-toggle ng-binding" aria-haspopup="true" aria-expanded="false"> <!-- ngIf: projects.length --><i ng-if="projects.length" class="fa fa-angle-down ng-scope"></i><!-- end ngIf: projects.length --></span>
-
-                <!-- ngIf: projects.length --><ul class="dropdown-menu ng-scope" ng-if="projects.length">
-                <!-- ngRepeat: project in projects --><li ng-repeat="project in projects" class="ng-scope">
-                <a href="http://192.241.236.31/" class="ng-binding">Online e-merchant management system - attaching integration with the iOS</a>
-            </li><!-- end ngRepeat: project in projects --><li ng-repeat="project in projects" class="ng-scope">
-                <a href="http://192.241.236.31/" class="ng-binding">Notes on pipeline upgradee</a>
-            </li><!-- end ngRepeat: project in projects --><li ng-repeat="project in projects" class="ng-scope">
-                <a href="http://192.241.236.31/" class="ng-binding">Assesment Report for merchant account</a>
-            </li><!-- end ngRepeat: project in projects -->
-                <li class="divider"></li>
-                <li>
-                    <a ng-click="clearProjects()"><i class="fa fa-power-off"></i> Clear</a>
-                </li>
-            </ul><!-- end ngIf: projects.length -->
-
-            </div>
-
-
-
-            <!-- pulled right: nav area -->
-            <div class="pull-right">
-
-                <!-- collapse menu button -->
-                <div id="hide-menu" class="btn-header pull-right">
-                    <span> <a ng-click="minimalMenu()" title="Collapse Menu"><i class="fa fa-reorder"></i></a> </span>
-                </div>
-                <!-- end collapse menu -->
-
-
-
-                <!-- logout button -->
-                <div id="logout" class="btn-header transparent pull-right">
-                    <span> <a ng-click="logout()" title="Sign Out" ><i class="fa fa-sign-out"></i></a> </span>
-                </div>
-                <!-- end logout button -->
-
-
-                <!-- fullscreen button -->
-                <div id="fullscreen" class="btn-header transparent pull-right">
-                    <span> <a full-screen="" title="Full Screen"><i class="fa fa-arrows-alt"></i></a> </span>
-                </div>
-                <!-- end fullscreen button -->
-
-                <!-- #Voice Command: Start Speech -->
-                <div id="speech-btn" class="btn-header transparent pull-right hidden-sm hidden-xs">
-                    <div>
-                        <a title="Voice Command" id="voice-command-btn" speech-recognition=""><i class="fa fa-microphone"></i></a>
-
-                        <div class="popover bottom">
-                            <div class="arrow"></div>
-                            <div class="popover-content">
-                                <h4 class="vc-title">Voice command activated <br>
-                                    <small>Please speak clearly into the mic</small>
-                                </h4>
-                                <h4 class="vc-title-error text-center">
-                                    <i class="fa fa-microphone-slash"></i> Voice command failed
-                                    <br>
-                                    <small class="txt-color-red">Must <strong>"Allow"</strong> Microphone</small>
-                                    <br>
-                                    <small class="txt-color-red">Must have <strong>Internet Connection</strong></small>
-                                </h4>
-                                <a href-void="" class="btn btn-success" id="speech-help-btn" href="http://192.241.236.31/themes/preview/smartadmin/1.5/angularjs/#">See Commands</a>
-                                <a href-void="" class="btn bg-color-purple txt-color-white" >Close Popup</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end voice command -->
-
-
-
-
-
-            </div>
-            <!-- end pulled right: nav area -->
-
-        </header>
-        <!-- END HEADER -->
-
-
-        <!-- Left panel : Navigation area -->
-        <!-- Note: This width of the aside area can be adjusted through LESS variables -->
-        <aside id="left-panel" class="" >
-
-            <!-- User info -->
-            <div login-info="">
-                <div class="login-info">
-    <span>
-        <a>
-            <img  alt="me" class="online" src="./img/admin/sunny.png">
-                <span class="ng-binding">hi,admin </span>
-        </a>
-
-     </span>
-                </div>
-            </div>
-            <!-- end user info -->
-
-            <!-- NAVIGATION : This navigation is also responsive
-
-            To make this navigation dynamic please make sure to link the node
-            (the reference to the nav > ul) after page load. Or the navigation
-            will not initialize.
-            -->
-            <nav>
-
-                <!-- 菜单开始 -->
-                <ul>
-                    <li ng-repeat="item in items" ng-init="fIndex=$index"  ng-class="{active:item.selected&&item.childs.length<1}">
-                        <a title="{{item.name}}" ng-href="{{item.url}}" ng-click="openClose($index)"><i class="fa fa-lg fa-fw {{item.ico}}"></i><span class="menu-item-parent ng-binding">{{item.name}}</span><b class="collapse-sign"><em ng-class="{'fa-minus-square-o':item.selected&&item.childs.length>0,'fa-plus-square-o':!item.selected&&item.childs.length>0}" class="fa"></em></b></a>
-                        <ul ng-repeat="child in item.childs" co-show="item.selected" co-show-duration="150">
-                            <li  ng-class="{active:child.selected}">
-                                <a class="ng-binding" href="{{child.url}}" ng-click="goTo(fIndex,$index)"><i class="{{child.ico}}"></i>{{child.name}}</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                </ul>
-                <!-- 菜单结束 -->
-            </nav>
-
-            <span class="minifyme" ng-click="minifyMenu()" >
-    <i class="fa fa-arrow-circle-left hit"></i>
-  </span>
-
-        </aside>
-        <!-- END NAVIGATION -->
-
-        <!-- MAIN PANEL -->
-        <div id="main" role="main" class="ng-scope" style="position: relative;">
-            <!-- 刷新开始 -->
-            <div class="demo">
-                <span id="demo-setting"><i class="fa fa-refresh txt-color-blueDark"></i></span>
-            </div>
-            <!-- 刷新结束 -->
-            <!-- 导航带 -->
-            <div id="ribbon">
-                <!-- 导航home -->
-                <span class="ribbon-button-alignment">
-                <span id="refresh" class="btn btn-ribbon ng-scope" reset-widgets="" tooltip-placement="bottom" tooltip-html-unsafe="&lt;i class=&#39;text-warning fa fa-warning&#39;&gt;&lt;/i&gt; Warning! This will reset all your widget settings.">
-                    <i class="fa fa-home"></i>
-                </span>
-            </span>
-                　<!-- end 导航home -->
-                <!-- 面包屑 -->
-                <ol class="breadcrumb"><li>Home</li><li ng-repeat="bc in breadcrumbs">{{bc.name}}</li></ol>
-                <!-- end 面包屑 -->
-            </div>
-            <!-- end 导航带 -->
-
-            <div class="router-animation-container">
-                <!-- 加载loading -->
-                <div ng-show="loading.value"><i class="fa fa-gear fa-4x fa-spin"></i></div>
-                <!-- end 加载loading -->
-                <div >
-                    <!-- 右侧主要内容 -->
-                    <div id="content" style=" " >
-                        <div class="row">
-                            <div ui-view></div>
-                        </div>
-
-                    </div>
-                    <!-- end 右侧主要内容 -->
-                </div>
-
-            </div>
-
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand">Bootswatch</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
         </div>
-        <!-- END MAIN PANEL -->
-
-        <div class="page-footer ">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <span class="txt-color-white">Sokey © 2016</span>
-                </div>
-
-                <div class="col-xs-6 col-sm-6 text-right hidden-xs">
-                    <div class="txt-color-white inline-block">
-                        <i class="txt-color-blueLight hidden-mobile"> <i class="fa fa-clock-o"></i>
-                            <strong> &nbsp;</strong> </i>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- PAGE FOOTER -->
-        <div class="page-footer ">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <span class="txt-color-white">Sokey © 2016</span>
-                </div>
-
-                <div class="col-xs-6 col-sm-6 text-right hidden-xs">
-                    <div class="txt-color-white inline-block">
-                        <i class="txt-color-blueLight hidden-mobile"> <i class="fa fa-clock-o"></i>
-                            <strong> &nbsp;</strong> </i>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="shortcut" data-smart-include="build/components/shortcut/shortcut.tpl.html" style="display: none;">
-            <ul>
-                <li>
-                    <a href="" class="jarvismetro-tile big-cubes bg-color-blue"> <span class="iconbox"> <i class="fa fa-envelope fa-4x"></i> <span>Mail <span class="label pull-right bg-color-darken">14</span></span> </span> </a>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes">Themes <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="themes">
+                        <li><a href="../default/">Default</a></li>
+                        <li class="divider"></li>
+                        <li><a href="../cerulean/">Cerulean</a></li>
+                        <li><a href="../cosmo/">Cosmo</a></li>
+                        <li><a href="../cyborg/">Cyborg</a></li>
+                        <li><a href="../darkly/">Darkly</a></li>
+                        <li><a href="../flatly/">Flatly</a></li>
+                        <li><a href="../journal/">Journal</a></li>
+                        <li><a href="../lumen/">Lumen</a></li>
+                        <li><a href="../paper/">Paper</a></li>
+                        <li><a href="../readable/">Readable</a></li>
+                        <li><a href="../sandstone/">Sandstone</a></li>
+                        <li><a href="../simplex/">Simplex</a></li>
+                        <li><a href="../slate/">Slate</a></li>
+                        <li><a href="../spacelab/">Spacelab</a></li>
+                        <li><a href="../superhero/">Superhero</a></li>
+                        <li><a href="../united/">United</a></li>
+                        <li><a href="../yeti/">Yeti</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="" class="jarvismetro-tile big-cubes bg-color-orangeDark"> <span class="iconbox"> <i class="fa fa-calendar fa-4x"></i> <span>Calendar</span> </span> </a>
+                    <a href="../help/">Help</a>
                 </li>
                 <li>
-                    <a href="" class="jarvismetro-tile big-cubes bg-color-purple"> <span class="iconbox"> <i class="fa fa-map-marker fa-4x"></i> <span>Maps</span> </span> </a>
+                    <a href="http://news.bootswatch.com">Blog</a>
                 </li>
-                <li>
-                    <a href="" class="jarvismetro-tile big-cubes bg-color-blueDark"> <span class="iconbox"> <i class="fa fa-book fa-4x"></i> <span>Invoice <span class="label pull-right bg-color-darken">99</span></span> </span> </a>
-                </li>
-                <li>
-                    <a href="" class="jarvismetro-tile big-cubes bg-color-greenLight"> <span class="iconbox"> <i class="fa fa-picture-o fa-4x"></i> <span>Gallery </span> </span> </a>
-                </li>
-                <li>
-                    <a href="" class="jarvismetro-tile big-cubes selected bg-color-pinkDark"> <span class="iconbox"> <i class="fa fa-user fa-4x"></i> <span>My Profile </span> </span> </a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download">Cerulean <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="download">
+                        <li><a href="http://jsfiddle.net/bootswatch/9y480qo5/">Open Sandbox</a></li>
+                        <li class="divider"></li>
+                        <li><a href="./bootstrap.min.css">bootstrap.min.css</a></li>
+                        <li><a href="./bootstrap.css">bootstrap.css</a></li>
+                        <li class="divider"></li>
+                        <li><a href="./variables.less">variables.less</a></li>
+                        <li><a href="./bootswatch.less">bootswatch.less</a></li>
+                        <li class="divider"></li>
+                        <li><a href="./_variables.scss">_variables.scss</a></li>
+                        <li><a href="./_bootswatch.scss">_bootswatch.scss</a></li>
+                    </ul>
                 </li>
             </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://builtwithbootstrap.com/" target="_blank">Built With Bootstrap</a></li>
+                <li><a href="https://wrapbootstrap.com/?ref=bsw" target="_blank">WrapBootstrap</a></li>
+            </ul>
+
         </div>
-
-        <!-- END PAGE FOOTER -->
     </div>
-
-
-
-
-
 </div>
