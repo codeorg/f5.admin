@@ -4,12 +4,10 @@ define(['angular','router','utility','service'],
         module.requires.push('service');
         module.controller("def", ['$scope', '$state', '$stateParams', 'http', function ($scope, $state, $stateParams, http) {
 
-            $scope.test = utility.date();
-            for(var i=0;i<10000;i++){
-                http.demo.test({sss: 1, dsfsd: {like: "you"}}, function (res) {
-                    $scope.img = res.url;
-                });
-            }
+            // $scope.test = utility.date();
+            // http.demo.test({sss: 1, dsfsd: {like: "you"}}, function (res) {
+            //     $scope.img = res.url;
+            // });
 
 
 

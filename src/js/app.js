@@ -7,6 +7,7 @@ require([
     'utility',
     'ui.router',
     'ngSanitize',
+    'zh-cn',
     'angular-loading-bar',
     'router'
 ], function (angular,utility) {
@@ -23,9 +24,51 @@ require([
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
             $rootScope.$on('$stateChangeStart', function (event, next, current, $scope) {
-                /*var url = $state.current.url;
-                 console.log(url);*/
+
+
+                var userMenus = {
+                    user: {
+                        "user": "商户列表",
+                        "auth": "商户审核"
+                    }
+                };
+
+                function getMenus() {
+                    if (!next.name) return [];
+                    var name = next.name.replace(/^user\.(\w+)/gi, '$1');
+                    if (!name)return [];
+                    var _meuns = [];
+                    for (var key in userMenus) {
+                        if (userMenus[key].hasOwnProperty(name)) {
+                            for (var k2 in userMenus[key]) {
+                                _meuns.push({id: k2, name: userMenus[key][k2]});
+                            }
+                            break;
+                        }
+                    }
+                    return _meuns;
+                }
+
+                $rootScope._menus = getMenus();
+
+                function _title() {
+
+                    if (!next.name) return '';
+                    var name = next.name.replace(/^user\.(\w+)/gi, '$1');
+                    if (!name)return '';
+                    for (var key in userMenus) {
+                        if (userMenus[key].hasOwnProperty(name)) {
+                            return userMenus[key][name];
+                        }
+                    }
+                    return '';
+                };
+
+                $rootScope._title = _title();
+
+
             });
+
             //db.config.find(function (res) {
             //    sokey.config.set(res.data);
             //})

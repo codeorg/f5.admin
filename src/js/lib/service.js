@@ -21,12 +21,12 @@ define([
                      fns = [
                          "find",
                          "findOne",
+                         "page",
                          "update",
                          "remove",
-                         "insert",
-                         "test"
+                         "insert"
                      ],
-                     _db_modules = ['demo'];//不可用关键字module
+                     _db_modules = ['login','user'];//不可用关键字module
 
                  var getFn = function (module) {
                      var objCmd = {};

@@ -33,7 +33,7 @@ define([
                         require: ['ctrl/category_url']
                     }))
                 ;
-                   angular.forEach( ['def','url','category'],function(item){
+                   angular.forEach( ['def','url','category','user','auth'],function(item){
                        $stateProvider.state('user.'+item, load({
                            url: '/'+item,
                            templateUrl: '/tpl/'+item+'.html',

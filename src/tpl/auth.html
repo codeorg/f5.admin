@@ -1,0 +1,51 @@
+<style>
+    *{
+        outline:none;
+        -moz-outline:none;
+    }
+</style>
+
+
+
+    <table class="table table-striped font_12">
+        <thead>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <div style="padding-top: 10px">选择商户：</div>
+
+            </td>
+            <td class="center">
+                <input type="text" class="form-control"  placeholder="Email">
+            </td>
+            <td >
+                <div style="padding-top: 10px">开始时间：</div>
+
+            </td>
+            <td>
+                <p class="input-group" tooltip-placement="top" >
+                    <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="dtFrom"
+                           is-open="fromOpened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" />
+                    <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+                </p>
+            </td>
+            <td>
+                结束时间：
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td colspan="7">
+                <button type="button" class="btn btn-primary">筛选</button>
+                <button type="button" class="btn btn-primary">重置</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>

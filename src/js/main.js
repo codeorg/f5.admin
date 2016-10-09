@@ -4,7 +4,8 @@ require.config({
     "baseUrl":"/js",
     "paths": {"angular" : "lib/angular",
         "jquery"        : "lib/jquery-1.11.1",
-        "socket.io"        : "lib/socket.io",
+        //"socket.io"        : "lib/socket.io",
+        "zh-cn"         : "lib/angular-locale_zh-cn",
         "ui.router"     : "lib/angular-ui-router",
         "ngResource"    : "lib/angular-resource",
         "ngSanitize"    : "lib/angular-sanitize",
@@ -15,6 +16,7 @@ require.config({
         "utility"       : "lib/utility",
         "service"       : "lib/service",
         "xeditable"     : "lib/xeditable",
+        "bootstrap"     : "lib/bootstrap",
         "router"       : "router"
     },
     "map": {
@@ -30,8 +32,10 @@ require.config({
         "ui.router"     : ["angular"],
         "ngResource"    : ["angular"],
         "ngSanitize"    : ["angular"],
+        "zh-cn"         : ["angular"],
         "ngScrollSpy"   : ["angular"],
-        //"utility"       : ["dateFormat"],
+        "bootstrap"       : ["jquery"],
+        "ui.bootstrap"  : ["angular"],
         "angular-loading-bar" : ["angular","css!/css/lib/loading-bar.css"],
         "xeditable" : ["angular","css!/css/xeditable.css"]
     },
