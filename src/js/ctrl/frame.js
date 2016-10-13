@@ -1,9 +1,23 @@
 'use strict';
-define(['angular','router','utility','service','bootstrap'],
+define(['angular','router','utility','service','bootstrap','xeditable'],
     function (angular,module,utility) {
-        module.requires.push('service');
-        module.controller("frame", ['$scope', '$state', '$stateParams','$location', 'http', function ($scope, $state, $stateParams,$location, http) {
+        module.requires.push('service','xeditable');
+        module.controller("frame", ['$scope', '$state', '$stateParams','$location', 'http','editableOptions', function ($scope, $state, $stateParams,$location, http,editableOptions) {
+            editableOptions.theme = 'bs3';
+            var user=utility.ls.get("user");
 
+            if(!user){
+                $state.go('login');
+            }else{
+                $scope.username=user.username;
+            }
+
+            $scope.signout=function () {
+                http.login.fn("signout")(function (res) {
+                    utility.ls.remove("user");
+                    $state.go("login")
+                })
+            }
 
         }]);
     });

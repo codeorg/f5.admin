@@ -39,9 +39,16 @@
                         <li><a href="/order">业务成本</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="/api"><i class="fa fa-plug"></i> 商户接口</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="api"><i class="fa fa-plug"></i> 商户接口 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" aria-labelledby="api">
+                        <li><a href="/doc">接口文档</a></li>
+                        <li><a href="/epay">电子支付</a></li>
+                        <li><a href="/cardsort">点卡支付</a></li>
+                        <li><a href="/banksort">银行种类</a></li>
+                    </ul>
                 </li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right" style="padding-right: 50px">
@@ -52,11 +59,11 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="manager"><i class="fa fa-user"></i> kalaco <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="manager"><i class="fa fa-user"></i> {{username}} <span class="caret"></span></a>
                     <ul class="dropdown-menu" aria-labelledby="manager">
                         <li><a href="/changepwd">修改密码</a></li>
                         <li class="divider"></li>
-                        <li><a href="/logout">退出登入</a></li>
+                        <li><a ng-click="signout()" href="/logout">退出登入</a></li>
                     </ul>
                 </li>
             </ul>

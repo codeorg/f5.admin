@@ -1,0 +1,26 @@
+<style>
+    .xianqing{list-style:none;overflow: hidden;}
+    .xianqing ul{list-style:none;float:left;}
+    .xianqing ul li{line-height: 40px;height:40px;border-bottom:1px #e1e1e1 dotted;}
+    .xianqing-ul li{width: 300px}
+</style>
+<div class="modal-header">
+    <h3 class="modal-title">修改密码</h3>
+</div>
+<div class="xianqing modal-body">
+        <ul>
+            <li><i class="glyphicon glyphicon-hand-right mar_r3 font_12 color_ccc"></i>用户名</li>
+            <li><i class="glyphicon glyphicon-hand-right mar_r3 font_12 color_ccc"></i>新密码</li>
+        </ul>
+        <ul class="xianqing-ul">
+            <li>{{db.username}}</li>
+            <li><input class="form-control" type="password"  ng-model="db.password" placeholder="新密码"></li>
+        </ul>
+
+
+</div>
+<div class="modal-footer">
+    <span class="text-success" style="margin-right: 50px;">{{msg}}</span>
+    <button class="btn btn-warning" type="button" ng-click="cancel()">关闭</button>
+    <button class="btn btn-primary" type="button" ng-click="changePwd()">修改密码</button>
+</div>

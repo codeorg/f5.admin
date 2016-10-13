@@ -3,6 +3,7 @@
         outline:none;
         -moz-outline:none;
     }
+    #mian_table td{vertical-align:middle;}
 </style>
 
 
@@ -17,7 +18,7 @@
 
             </td>
             <td class="center">
-                <input type="text" class="form-control"  placeholder="7位商户编号">
+                <input type="text" class="form-control" ng-model="uid"  placeholder="7位商户编号">
             </td>
             <td >
                 <div style="padding-top: 10px">开始时间：</div>
@@ -50,26 +51,29 @@
             <td>
             </td>
             <td colspan="7">
-                <button type="button" class="btn btn-primary">筛选</button>
+                <button ng-click="search()" type="button" class="btn btn-primary">筛选</button>
                 <button type="button" class="btn btn-primary">重置</button>
             </td>
         </tr>
         </tbody>
     </table>
 
-<table class="table table-striped table-bordered">
+<table id="mian_table" class="table table-striped table-bordered">
     <thead>
     <tr>
-        <th width="20%">
+        <th width="15%">
             商户编号
         </th>
-        <th width="20%">
-            公司名称
+        <th width="15%">
+            用户名
+        </th>
+        <th width="10%">
+            余额
         </th>
         <th width="20%">
             网站地址
         </th>
-        <th width="20%">
+        <th width="40%">
             详情/操作
         </th>
     </tr>
@@ -83,12 +87,17 @@
             {{row.username}}
         </td>
         <td class="center">
+            {{row.money}}
+        </td>
+        <td class="center">
             <span class="label-success label label-default">{{row.url}}</span>
         </td>
         <td class="center">
-            <a href="#" class="btn btn-primary btn-xianqing"><i class="glyphicon glyphicon-zoom-in icon-white"></i> 详情/修改</a>
-            <a href="#" class="btn btn-danger btn-mima"><i class="glyphicon glyphicon-th"></i>密码</a>
-            <a href="#" class="btn btn-danger btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>冻结该商户</a>
+            <a ng-click="userEdit(row.uid)" class="btn btn-primary btn-xianqing"><i class="glyphicon glyphicon-zoom-in icon-white"></i> 详情/修改</a>
+            <a ng-click="pwdEdit(row.username)" class="btn btn-danger btn-mima"><i class="glyphicon glyphicon-th"></i>密码</a>
+            <a ng-show="row.status==1" ng-click="freeze(row)" class="btn btn-danger btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>冻结该商户</a>
+            <a ng-show="row.status==-1" ng-click="unfreeze(row)" class="btn btn-default btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>解冻该商户</a>
+            <a ng-click="rate(row)" class="btn btn-success btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>清算比例</a>
         </td>
     </tr>
 

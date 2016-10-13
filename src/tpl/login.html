@@ -1,34 +1,142 @@
-<form class="form-horizontal">
-    <fieldset>
-        <legend>login</legend>
-        <div class="form-group">
-            <label for="username" class="col-lg-2 control-label">用户名</label>
-            <div class="col-lg-10">
-                <input type="text" class="form-control" ng-model="data.username" id="username" placeholder="用户名">
-            </div>
-        </div>
-        <div class="form-group">
-        <label for="inputPassword" class="col-lg-2 control-label">密码</label>
-        <div class="col-lg-10">
-            <input type="password" class="form-control" ng-model="data.password" id="inputPassword" placeholder="密码">
+<style>
+    @charset "utf-8";/* CSS Document */
+    html{font-size:62.5%;text-align:center;font-family:"微软雅黑","Microsoft YaHei","Helvetica Neue",Helvetica,STHeiTi,sans-serif;height:100%;-webkit-text-size-adjust:none;-webkit-user-select:none;
+        background:url(/img/bg_merch.jpg) no-repeat left top;
+        background-size:100% auto;}
+    html{font-size:75%\0;}
+    * {margin:0;padding:0;list-style:none;}
+    body {width:100%;margin:0 auto;padding:0;font-family:"微软雅黑"; color:#333;height:100%; position:relative; background:url(/img/bg_merch.jpg) no-repeat left top;}
+    a {text-decoration:none;border:0;color:#333;}
+    a:hover,*:hover,a:active,*:active {text-decoration:none;border:0;}
+    a img{border:0;}
+    input[type="button"],input[type="submit"],input[type="checkbox"],input[type="date"],input,textarea{-webkit-appearance:none;font-family:"微软雅黑";font-weight:normal;border:none;-webkit-tap-highlight-color:rgba(0,0,0,0) !important;}
+    input, button{background-color:transparent;-webkit-appearance:none;-moz-appearance: none; -o-appearance: none; appearance: none;}
+    input:focus {outline:none;color:#fff; border:0;}
+    fieldset{border:0;}
+    input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill{-webkit-box-shadow: 0 0 0px 1000px #374553 inset !important; -webkit-text-fill-color: #fff;border-bottom:1px solid #778a9d;}
+    /***登录css***/
+    .land{width:48rem;height:38rem; margin:0 auto;position:absolute; top:50%;margin-top:-26rem; left:50%;margin-left:-24rem; overflow:hidden; background:#fff; background:url(/img/logo1.png) no-repeat center top;clear:both;}
+    .main{width:40rem;height:27rem; position:relative;margin:0 auto;margin-top:9rem; background:#374553 !important;-moz-border-radius:0.5rem; -webkit-border-radius:0.5rem; border-radius:0.5rem;-moz-box-shadow:0px 1px 3px 2px rgba(0, 0, 0, 0.3);-webkit-box-shadow:0px 1px 3px 2px rgba(0, 0, 0, 0.3);box-shadow:0px 1px 3px 2px rgba(0, 0, 0, 0.3);}
+    .land_bg{width:28rem; margin:0 auto; clear:both;padding-top:3.2rem;overflow:hidden;}
+    .inputWrap {margin:0 auto;width:29rem; height:3rem;margin:0 auto;margin-top:1rem;position:relative;font-size:1.4rem; float:left; position:relative;}
+    .form-material .form-control1,
+    .form-material .form-control1:focus{background-image:-webkit-linear-gradient(#4c9afa, #4c9afa),-webkit-linear-gradient(#778a9d, #778a9d);background-image:-ms-linear-gradient(#4c9afa, #4c9afa),-ms-linear-gradient(#778a9d, #778a9d);background-image:-moz-linear-gradient(#4c9afa, #4c9afa),-moz-linear-gradient(#778a9d, #778a9d);background-image:-o-linear-gradient(#4c9afa, #4c9afa),-o-linear-gradient(#778a9d, #778a9d);border-radius: 0;background-image:linear-gradient(#4c9afa, #4c9afa),linear-gradient(#778a9d, #778a9d);border-bottom:1px solid #778a9d\0;border-radius: 0;box-shadow: none;padding-left:1rem;background-image:none\0;}
+    .form-material .form-control1{float:left;background-color:rgba(0,0,0,0);background-position:center bottom,center calc(99%);background-repeat:no-repeat;background-size:0 2px,100% 1px;transition:background 0s ease-out 0s;color:#fff;height:3rem;width: 28rem;font-size:1.4rem;font-size:1.2rem\0;line-height:1.42857143;}
+    .form-material .form-control1:focus{background-size: 100% 2px,100% 1px;outline: 0 none;transition-duration: .3s; -moz-transition-duration:.3s; -webkit-transition-duration:.3s; -o-transition-duration:.3s;border-bottom:2px solid #4c9afa\0;}
+    .form-material .form-yzm:focus{width:15.5rem;}
+    .form-material .form-yzm{width:15.5rem; }
+    .yzmImg input{width:15.5rem;float:left;}
+    .yzmImg .yzm{width:11rem;height:3rem; position:relative; float:right;overflow:hidden; z-index:999; margin-right:1rem;}
+    .yzmImg .yzm img{width:11rem;height:3rem;border-radius:0.3rem;-moz-border-radius:0.3rem; -webkit-border-radius:0.3rem; border:0;}
+    .land:-moz-placeholder {color: #778a9d;}
+    .land::-moz-placeholder {color: #778a9d;}
+    .land input:-ms-input-placeholder {color: #778a9d;}
+    .land input::-webkit-input-placeholder {color: #778a9d;}
+
+    .land .dianji{width:1.2rem; height:1.2rem;left:0; top:0;position: absolute;z-index: 2;}
+    .land input:checked{width: 1.2rem;height: 1.2rem;border:0;}
+    .land input:checked + .dianji{width:1.2rem; height:1.2rem;left:0; top:0;position: absolute;z-index: 2;background: url(./img/choose.png) no-repeat; background-size:1.2rem 1.2rem;}
+    .land .sub {width:100%;margin:0 auto;text-align:center;overflow:hidden; position:relative;}
+    .land .btn-login {font-size:1.6rem;text-align:center;position:relative;margin:0 auto;width:100%;margin-top:2rem;background:#4c9afa;height:3.6rem;color:#FFF;-moz-border-radius:0.3rem; -webkit-border-radius:0.3rem;border-radius:0.3rem;border:0px;z-index:999;cursor:pointer;}
+    .land .btn-login:hover{background:#2a7fe6;}
+    .foot{width:100%;padding:1rem 0;position:absolute; bottom:0;left:0;background:#394553;text-align:center;color:#778a9d; font-size:1.2rem;font-size:1rem\0; overflow:hidden;}
+    .bottom {width:72rem;margin:0 auto; margin-top:1.5rem; clear:both;overflow: hidden;}
+    .bottom ul li{float:left; width:6.1rem;height:9rem; overflow:hidden;margin-right:15.6rem; text-align:center;}
+    .bottom ul li img{ clear:both;}
+    .bottom ul li.nth_last{margin-right:0;}
+    .bottom a{color:#4c9afa;}
+    .footer{ clear:both;}
+
+    /***兼容手机css***/
+    @media screen and (max-width: 768px) {
+        html {-webkit-font-smoothing:antialiased;background-size:auto 100%; background-position:center;}
+        .land_page{height:100%; position:absolute;width:100%;margin: 0 auto; overflow:hidden}
+        body{height:100%;}
+        .land{width:88%; position:relative;margin:0 auto; height:auto;top:0;left:0; background-position:center 2.9rem;background-size:14rem 4rem;padding-bottom:1rem;}
+        .land_bg{width: calc(100% - 6rem);padding-top:0.5rem;}
+        .inputWrap{width:100%; height:3.5rem; margin-top:1rem; font-size:1.4rem;}
+        .main{width:calc(100% - 0.5rem); height:auto;border-radius:0.5rem;}
+        .land .sub{margin-bottom:2rem;}
+        .form-material .form-control1{width:100%;height:3.2rem; line-height:3.2rem;}
+        .form-material .form-yzm{width:calc(50% - 1rem);}
+        .form-material .form-yzm:focus{width:calc(50% - 1rem)}
+        .yzmImg .yzm{width:calc(50% - 0.5rem); height:3.2rem; margin-right:0;}
+        .yzmImg .yzm img{width:100%;height:3.2rem;}
+        .land .checkbox{width:100%;height:1.5rem; margin-top:1rem; line-height:1.2rem;}
+        .land .dianji{width:1.5rem;height:1.5rem;}
+        .land .checkbox input{width:1.3rem;height:1.3rem;}
+        .land input:checked + .dianji{background-size:1.3rem 1.3rem;}
+        .bottom{ display:none;}
+        .foot{width:100%;height:auto; padding-bottom:1rem;}
+        .footer{margin-top:1rem; line-height:1.5rem;padding:0 0.5rem;}
+    }
+    @media screen and (max-height: 700px) {
+        .bottom{ display:none !important;}
+    }
+
+    @media screen and (max-height: 500px) {
+        .foot{ display:none;}
+    }
+
+
+
+</style>
+<div class="land_page">
+    <div class="land">
+        <div class="main">
+            <form class="form-material" method="post">
+                <div class="land_bg">
+                    <fieldset >
+                        <div class="tips-error " ></div>
+                        <div class="inputWrap">
+                            <input class="form-control1" type="userName" ng-change="msg=''" ng-model="data.username" placeholder="登录帐号" id="username">
+                        </div>
+                        <div class="inputWrap">
+                            <input class="form-control1" type="password" ng-change="msg=''" ng-model="data.password" placeholder="登录密码">
+
+                        </div>
+
+
+                        <div class="inputWrap yzmImg">
+                            <input class="form-control1 form-yzm" type="text" ng-change="checkCap()" ng-keyup="submit($event)"  ng-model="data.cap.value"  maxlength="4" placeholder="验证码">
+                            <div class="yzm">
+                                <img ng-click="getCap()" style="cursor: pointer" ng-src="{{img}}">
+                                <img class="img-verify change-verify" id="imgVerify"  ng-click="getCap()" style="cursor: pointer"  title="点击换一张" alt="点击换一张" ng-src="{{img}}">
+                                <i ng-show="iscap" class="fa fa-check-circle fa-2x text-success" style="position: absolute;top:5px;left: 5px;"></i>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <div style="height: 30px; text-align: left;padding-top: 15px;"  class="text-danger">
+
+                     <i class="fa fa-times-circle fa-lg" ng-show="!!msg"></i> {{msg}}
+                </div>
+                    <div class="sub">
+                        <input type="button" class="btn-login" ng-click="signin()" value="登录">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-        <div class="form-group">
-            <label for="inputcap" class="col-lg-2 control-label">验证码</label>
-            <div class="col-lg-5">
-                <input type="text" class="form-control" ng-change="checkCap()" ng-model="data.cap.value" id="inputcap" placeholder="验证码">
-            </div>
-
-            <div class="col-lg-5">
-                <img ng-click="getCap()" style="cursor: pointer" ng-src="{{img}}">
-            </div>
+    <div class="foot">
+        <div class="bottom">
+            <ul>
+                <li><a href=""><img src="/img/public.png">公众号支付</a></li>
+                <li><a href=""><img src="/img/app.png">app支付</a></li>
+                <li><a href=""><img src="/img/code.png">扫码支付</a></li>
+                <li class="nth_last"><a href=""><img src="/img/card.png">刷卡支付</a></li>
+            </ul>
         </div>
+        <div class="footer">
+            Copyright © 2016 ZI FU NET Technology. All Rights Reserved</div>
+    </div>
+</div>
 
-        <div class="form-group">
-            <div class="col-lg-10 col-lg-offset-2">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </fieldset>
-</form>
+
+
+
+
+
+
+
+
+

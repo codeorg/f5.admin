@@ -17,19 +17,21 @@ require([
         'ui.router', 'ngSanitize','angular-loading-bar'
     ])
         .run(['$rootScope','$state','$stateParams', function ($rootScope,$state,$stateParams) {
-            //web socket服务
-            //var socket = io.connect('http://api.sokey.org:7002');
-            //socket.emit('reg', {sid: sokey.ls.get('token')});
-
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
-            $rootScope.$on('$stateChangeStart', function (event, next, current, $scope) {
 
+            $rootScope.$on('$stateChangeStart', function (event, next, current, $scope) {
 
                 var userMenus = {
                     user: {
                         "user": "商户列表",
                         "auth": "商户审核"
+                    },
+                    api:{
+                        "doc": "接口文档",
+                        "epay": "电子支付",
+                        "cardsort": "卡类支付",
+                        "banksort": "银行种类",
                     }
                 };
 
@@ -69,9 +71,6 @@ require([
 
             });
 
-            //db.config.find(function (res) {
-            //    sokey.config.set(res.data);
-            //})
 
         }])
         .config(['$locationProvider', '$urlRouterProvider','cfpLoadingBarProvider','$httpProvider',
@@ -83,7 +82,7 @@ require([
                 cfpLoadingBarProvider.includeSpinner = false;
                 $locationProvider.html5Mode(true);
             }])
-        .factory('httpHandle', ['$q','$injector',function ($q,$injector) {
+        .factory('httpHandle', ['$q','$injector','$window',function ($q,$injector,$window) {
             return {
                 request: function (req) {
                     req.headers = req.headers || {};
@@ -94,23 +93,23 @@ require([
                 },
                 response: function (res) {
                     if(res.data&&typeof res.data==="object"){
-                        //获取不到
-                        // if(res.headers('Token')){
-                        //     utility.ls.set('token',res.headers('Token'));
-                        //     console.log(res.headers('Token'));
-                        // }
+                        //console.log(res)
+                        if(res.data.err===401){
+                            //var $state=$injector.get('$state');
+                            //if(!$state||!$state.current||!$state.current.name) return window.location.href="/login";
+                            //$state.go('login',null,{reload:true});
+                            $window.location.href="/login";
+                        }
                     }
                     return res || $q.when(res);
                 },
                 responseError: function(rejection) {
-                    if (rejection.status === 401) {
-                        //statego($injector,codeorg);
-                    }
                     return $q.reject(rejection);
                 }
             };
         }])
         ;
+
     angular.bootstrap(document, ['app']);
     return app;
 });

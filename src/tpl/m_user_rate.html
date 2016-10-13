@@ -1,0 +1,45 @@
+<form editable-form name="tableform" onaftersave="save()">
+<div class="modal-header">
+    <h3 class="modal-title">
+        清算比例设置
+    </h3>
+</div>
+<div class="modal-body">
+        <!-- table -->
+        <table class="table table-bordered table-hover table-condensed">
+            <tr style="font-weight: bold">
+                <td style="width:40%">通道</td>
+                <td style="width:30%">比例</td>
+                <td style="width:30%">状态</td>
+            </tr>
+            <tr ng-repeat="row in rows ">
+                <td>
+                    {{ row.name || 'empty' }}
+                </td>
+                <td>
+                    <!-- editable group (select-remote) -->
+                    <span editable-text="row.rate" e-form="tableform" >
+                        {{ row.rate || 'empty' }}
+                    </span>
+                </td>
+                <td>
+                    <!-- editable status (select-local) -->
+                    <span editable-select="row.status" e-form="tableform" e-ng-options="s.value as s.text for s in status">
+            {{ row.status|status}}
+          </span>
+                </td>
+
+            </tr>
+        </table>
+
+
+
+
+</div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+    <button type="button" class="btn btn-primary" ng-show="!tableform.$visible" ng-click="tableform.$show()">修改</button>
+    <button ng-show="tableform.$visible" class="btn btn-success" type="submit">保存</button>
+</div>
+</form>

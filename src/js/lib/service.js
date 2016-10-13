@@ -26,7 +26,7 @@ define([
                          "remove",
                          "insert"
                      ],
-                     _db_modules = ['login','user'];//不可用关键字module
+                     _db_modules = ['login','user','epay','cardsort','banksort','rate'];//不可用关键字module
 
                  var getFn = function (module) {
                      var objCmd = {};
@@ -36,10 +36,9 @@ define([
                                  cb = query;
                                  query = {};
                              }
-                             utility.ls.set("sid","sssssssss");
                              query._bid=utility.bid||"";
-                             var sid=utility.ls.get("sid")||"";
-                             if(sid)query._sid=sid;
+                             var user=utility.ls.get("user")||{};
+                             if(user.sid)query._sid=user.sid;
                              var resource = $resource(host+_type.name+'/:m/:c', {m: '@m', c: '@c'});
                             return resource.save({m: module, c: fn_name}, query, function (res) {
                                  cb(res);
@@ -73,6 +72,7 @@ define([
          .factory('http',['remote',function(remote){
              return remote({name:"admin"});
          }])
+
     /**
      * 重复数据验证
      */
@@ -149,7 +149,44 @@ define([
                 return $sce.trustAsHtml(text);
             };
         }])
-
+         .filter('time',function(){
+             return function(value){
+                 return utility.date(value);
+             }
+         })
+         .filter('bank',function(){
+             return function(value){
+                 var arr= [{
+                     id:"icbc",
+                     name:"中国工商银行"
+                 },{id:"abc",
+                     name:"农行"}];
+                 for(var i in arr){
+                     var item=arr[i];
+                     if(item.id==value)  return item.name;
+                 }
+                 return "未找到";
+             }
+         })
+         .filter('us',function(){
+             return function(value){
+                 if(value==-1) return "冻结";
+                 if(value==1) return "已认证";
+                 return "未认证";
+             }
+         })
+         .filter('ur',function(){
+             return function(value){
+                 if(value=="user") return "用户";
+                 return "代理";
+             }
+         })
+         .filter('status',function(){
+             return function(value){
+                 if(value==1) return "开启";
+                 return "关闭";
+             }
+         })
     /**
      * co-show指令，实现jquery.show(time)效果
      *
