@@ -26,7 +26,7 @@ define([
                          "remove",
                          "insert"
                      ],
-                     _db_modules = ['login','user','epay','cardsort','banksort','rate'];//不可用关键字module
+                     _db_modules = ['login','user','epaysort','cardsort','banksort','rate','card','epay','cache'];//不可用关键字module
 
                  var getFn = function (module) {
                      var objCmd = {};
@@ -149,23 +149,38 @@ define([
                 return $sce.trustAsHtml(text);
             };
         }])
-         .filter('time',function(){
+         .filter('day',function(){
              return function(value){
+                 if(!value) return "";
                  return utility.date(value);
              }
          })
-         .filter('bank',function(){
+         .filter('datetime',function(){
              return function(value){
-                 var arr= [{
-                     id:"icbc",
-                     name:"中国工商银行"
-                 },{id:"abc",
-                     name:"农行"}];
-                 for(var i in arr){
-                     var item=arr[i];
-                     if(item.id==value)  return item.name;
-                 }
-                 return "未找到";
+                 if(!value) return "";
+                 return utility.date(value,"yyyy-mm-dd HH:MM:ss");
+             }
+         })
+         .filter('money',function(){
+             return function(value){
+                 return utility.formatMoney(value);
+             }
+         })
+         .filter('banksort',function(){
+             return function(value){
+                 var arr=utility.ls.get("banksort");
+                 var o=utility.find(arr,{id:value});
+                 if(!o) return "非法数据:"+value;
+                 return o.name;
+             }
+         })
+         .filter('cardsort',function(){
+             return function(value){
+                 var arr=utility.ls.get("cardsort");
+                 var o=utility.find(arr,{id:value});
+                 console.log(utility.sort({b:1,a:2,c:3}))
+                 if(!o) return "非法数据:"+value;
+                 return o.name;
              }
          })
          .filter('us',function(){
@@ -185,6 +200,12 @@ define([
              return function(value){
                  if(value==1) return "开启";
                  return "关闭";
+             }
+         })
+         .filter('paystatus',function(){
+             return function(value){
+                 if(value==1) return "成功";
+                 return "失败";
              }
          })
     /**

@@ -4,6 +4,7 @@ require.config({
     "baseUrl":"/js",
     "paths": {"angular" : "lib/angular",
         "jquery"        : "lib/jquery-1.11.1",
+        "lodash"        : "lib/lodash",
         //"socket.io"        : "lib/socket.io",
         "zh-cn"         : "lib/angular-locale_zh-cn",
         "ui.router"     : "lib/angular-ui-router",
@@ -35,6 +36,7 @@ require.config({
         "zh-cn"         : ["angular"],
         "ngScrollSpy"   : ["angular"],
         "bootstrap"       : ["jquery"],
+        "utility"       : ["lodash"],
         "ui.bootstrap"  : ["angular"],
         "angular-loading-bar" : ["angular","css!/css/lib/loading-bar.css"],
         "xeditable" : ["angular","css!/css/xeditable.css"]

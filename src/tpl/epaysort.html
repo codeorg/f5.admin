@@ -33,11 +33,11 @@
                     </td>
 
                     <td >
-                        <span ng-if="row.id!='bank'" editable-select="row.sp" e-name="sp" e-form="rowform" e-ng-options="s.value as s.text for s in sps">
+                        <span ng-if="row.id!='BANK'" editable-select="row.sp" e-name="sp" e-form="rowform" e-ng-options="s.value as s.text for s in sps">
                           {{ row.sp}}
                         </span>
 
-                        <button ng-if="row.id=='bank'" ng-click="goBankSort()" type="submit"  class="btn btn-primary btn-sm">
+                        <button ng-if="row.id=='BANK'" ng-click="goBankSort()" type="submit"  class="btn btn-primary btn-sm">
                             详细设置
                         </button>
                     </td>

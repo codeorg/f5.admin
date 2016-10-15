@@ -2,11 +2,14 @@
 define(['angular','router','utility','service','xeditable','ui.bootstrap'],
     function (angular,module,utility) {
         module.requires.push('service','xeditable','ui.bootstrap');
-        module.controller("user", ['$scope', '$state', '$stateParams','$modal', 'http', function ($scope, $state, $stateParams,$modal, http) {
-
+        module.controller("card", ['$scope', '$state', '$stateParams','$modal', 'http', function ($scope, $state, $stateParams,$modal, http) {
+            $scope.css=[];
+            $scope.query = {
+                time:0
+            };
+            $scope.css=utility.ls.get("cardsort");
 
         //------------------日期开始-------------------
-            $scope.uid="";
             // $scope.dtTo = new Date();
             // $scope.dtFrom = new Date(new Date().setDate($scope.dtTo.getDate() -7));
             $scope.dtTo = null;
@@ -29,9 +32,6 @@ define(['angular','router','utility','service','xeditable','ui.bootstrap'],
                 $scope.dtTo = null;
             };
             //------------------日期开结束-----------------
-
-
-
             $scope.rows=[];
             //------------------分页开始--------------
             $scope.page={pageNo:1,pageSize:1,count:0,maxSize:10};
@@ -48,17 +48,32 @@ define(['angular','router','utility','service','xeditable','ui.bootstrap'],
 
             //------------------搜索开始--------------
             $scope.search=function(){
-                var query={"_or":[{status:1},{status:-1}]};
+                var query={};
                 if($scope.dtFrom||$scope.dtTo){
                     var _dtFrom=!$scope.dtFrom?"":utility.dayTime($scope.dtFrom);
                     var _dtTo=!$scope.dtTo?"":utility.dayTime($scope.dtTo);
-                    query.reg_time=utility.format("[%s,%s]",_dtFrom,_dtTo)
+                    if($scope.query.time==1)
+                        query.time=utility.format("[%s,%s]",_dtFrom,_dtTo)
+                    else
+                        query.trade_time=utility.format("[%s,%s]",_dtFrom,_dtTo)
+
                 }
-                if($scope.uid)query.uid=$scope.uid;
-                http.user.page({query:query,page:$scope.page},function(res){
+                if($scope.query.partner)query.partner=$scope.query.partner;
+                if($scope.query.cid)query.cid=$scope.query.cid;
+                if($scope.query.order_no)query.order_no=$scope.query.order_no;
+                if($scope.query.card_type)query.card_type=$scope.query.card_type;
+                if($scope.query.trade_status==0||$scope.query.trade_status==1)query.trade_status=$scope.query.trade_status;
+                if($scope.query.notify_status==0||$scope.query.notify_status==1)query.notify_status=$scope.query.notify_status;
+                //console.log(query)
+                http.card.page({query:query,page:$scope.page},function(res){
+                    console.log(res)
                     if(res.err) return;
                     $scope.rows=res.data.rows;
                     $scope.page.count=res.data.count;
+                    $scope.total_fee=res.data.total_fee;
+                    $scope.service_fee=res.data.service_fee;
+                    $scope.fact_fee=res.data.fact_fee;
+
                 });
             };
             //------------------搜索结束--------------
@@ -90,8 +105,14 @@ define(['angular','router','utility','service','xeditable','ui.bootstrap'],
                             })
                         }
 
-                        $scope.banks = utility.ls.get("banksort");
-
+                        $scope.banks = [];
+                        $scope.loadBanks=function () {
+                            $scope.banks=[{
+                                id:"icbc",
+                                name:"中国工商银行"
+                            },{id:"abc",
+                                name:"农行"}]
+                        }
 
                         //------------------取消--------------
                         $scope.cancel = function () {

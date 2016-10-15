@@ -2,11 +2,12 @@
 define([
     'angular',
     'utility',
-    'ui.router'
+    'ui.router',
+    'service'
 ], function (angular,utility) {
     'use strict';
     var app = angular.module('router', [
-        'ui.router'
+        'ui.router','service'
     ])
         .config(['$stateProvider', '$controllerProvider', '$compileProvider', '$filterProvider', '$provide','$animateProvider',
             function ($stateProvider, $controllerProvider, $compileProvider, $filterProvider, $provide,$animateProvider) {
@@ -23,7 +24,17 @@ define([
                         abstract: true,
                         controller: 'frame',
                         templateUrl: '/tpl/frame.html',
-                        require: ['ctrl/frame']
+                        require: ['ctrl/frame'],
+                        resolve:{
+                            cache:  ['$q','http',function($q,http) {
+                                var defer = $q.defer();
+                                http.cache.find(function (res) {
+                                    defer.resolve(res.data);
+                                })
+                                return defer.promise;
+                            }]
+
+                        }
                     }))
                     .state('user.category_url',
                     load({
@@ -33,7 +44,7 @@ define([
                         require: ['ctrl/category_url']
                     }))
                 ;
-                   angular.forEach( ['def','cardsort','banksort','epay','user','auth'],function(item){
+                   angular.forEach( ['def','cardsort','banksort','epaysort','user','auth','epay','card'],function(item){
                        $stateProvider.state('user.'+item, load({
                            url: '/'+item,
                            templateUrl: '/tpl/'+item+'.html',
@@ -45,20 +56,22 @@ define([
             }]);
     return app;
     function load(config){
-        return angular.extend({
-            resolve: {
-                delay: ['$q', '$rootScope', 'moduleInjector', function ($q, $rootScope, moduleInjector) {
-                    var defer = $q.defer();
-                    require(config.require, function () {
-                        var deps=app.requires;
-                        if (deps && angular.isArray(deps) && deps.length > 0) moduleInjector(deps);
-                        defer.resolve();
-                        $rootScope.$apply();
-                    });
-                    return defer.promise;
-                }]
-            }
-        }, config);
+        var resolve= {
+            delay: ['$q', '$rootScope', 'moduleInjector', function ($q, $rootScope, moduleInjector) {
+                var defer = $q.defer();
+                require(config.require, function () {
+                    var deps = app.requires;
+                    if (deps && angular.isArray(deps) && deps.length > 0) moduleInjector(deps);
+                    defer.resolve();
+                    $rootScope.$apply();
+                });
+                return defer.promise;
+            }]
+        };
+        config.resolve=config.resolve||{};
+        config.resolve.delay=resolve.delay;
+        //config.resolve=angular.extend(resolve,config.resolve);
+        return config;
     }
 
 

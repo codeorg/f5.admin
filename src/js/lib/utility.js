@@ -1,7 +1,7 @@
-define(["dateFormat"],function (dateFormat) {
+define(["dateFormat","lodash"],function (dateFormat,_) {
     'use strict';
     var toInt=function(obj){
-        //console.log(typeof obj)
+        if(!obj) return 0;
         if(typeof obj==='number')return parseInt(obj);
         if(typeof obj!=='string')obj=obj.toString();
         if(isInt(obj))return parseInt(obj);
@@ -9,6 +9,7 @@ define(["dateFormat"],function (dateFormat) {
         return 0;
     }
     var toFloat=function(obj){
+        if(!obj) return 0;
         if(typeof obj==='number')return parseFloat(obj);
         if(typeof obj!=='string')obj=obj.toString();
         if(isInt(obj))return parseInt(obj);
@@ -95,7 +96,7 @@ define(["dateFormat"],function (dateFormat) {
 
     function formatMoney(obj){
         obj=toFloat(obj);
-        return obj.toFixed(2).toString();
+        return obj.toFixed(2);
     }
 
     //可以只有date(format)
@@ -604,13 +605,27 @@ define(["dateFormat"],function (dateFormat) {
     }
     //-------copy对象　结束-----------------------------------------------------------------
 
-
-    var indexOf=function (arr, findObj) {
-        if(!arr||arr.length==0) return -1;
-        for (var i=0;i<arr.length;i++) {
-            if(arr[i]==findObj)return i;
-        }
-        return -1;
+    function random(start,end){
+        return _.random(start,end)
+    }
+    //{b:1,a:2,c:3} =>{a:2,b:1,c:3}
+    function sort(obj) {
+        if (_.isArray(obj)) return _.sortBy(obj);
+        let o = {};
+        var arr=_.sortBy(_.keys(obj));
+        _.forEach(arr, function (value) {
+            o[value] = obj[value];
+        });
+        return o
+    }
+    function indexOf(ary,value){
+        return _.indexOf(ary,value);
+    }
+    function findIndex(ary,obj){
+        return _.findIndex(ary,obj);
+    }
+    function find(ary,obj){
+        return _.find(ary,obj);
     }
 
     return {
@@ -625,7 +640,11 @@ define(["dateFormat"],function (dateFormat) {
         formatObj:formatObj,
         formatIp:formatIp,
         formatMoney:formatMoney,
+        random:random,
+        sort:sort,
+        findIndex:findIndex,
         indexOf:indexOf,
+        find:find,
         date:date,
         dayTime:dayTime,
         setDay:setDay,

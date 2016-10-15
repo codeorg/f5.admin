@@ -2,10 +2,10 @@
 define(['angular','router','utility','service'],
     function (angular,module,utility) {
         module.requires.push('service');
-        module.controller("epay", ['$scope', '$state', '$stateParams', 'http', function ($scope, $state, $stateParams, http) {
+        module.controller("epaysort", ['$scope', '$state', '$stateParams', 'http', function ($scope, $state, $stateParams, http) {
 
             $scope.rows=[];
-            http.epay.find(function (res) {
+            http.epaysort.find(function (res) {
                 $scope.rows=res.data;
             })
 
@@ -17,13 +17,13 @@ define(['angular','router','utility','service'],
                 if($scope.rows.length>index){
                     db._id=$scope.rows[index].id;
                 }
-                http.epay.update(db,function(res){
+                http.epaysort.update(db,function(res){
                     //$scope.rows[index]._id=db.id;
                 });
             };
 
             $scope.removeRow = function(index) {
-                http.epay.remove({id:$scope.rows[index].id},function(res){
+                http.epaysort.remove({id:$scope.rows[index].id},function(res){
                     console.log(res);
                     $scope.rows.splice(index, 1);
                 });

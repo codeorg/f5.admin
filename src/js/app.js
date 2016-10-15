@@ -23,13 +23,18 @@ require([
             $rootScope.$on('$stateChangeStart', function (event, next, current, $scope) {
 
                 var userMenus = {
+                    pay: {
+                        "epay": "电子支付查询",
+                        "card": "卡类支付查询"
+                    },
                     user: {
                         "user": "商户列表",
                         "auth": "商户审核"
                     },
+
                     api:{
                         "doc": "接口文档",
-                        "epay": "电子支付",
+                        "epaysort": "电子支付",
                         "cardsort": "卡类支付",
                         "banksort": "银行种类",
                     }
@@ -71,6 +76,8 @@ require([
 
             });
 
+            $rootScope.aaa="aaaaaaaaaaa";
+
 
         }])
         .config(['$locationProvider', '$urlRouterProvider','cfpLoadingBarProvider','$httpProvider',
@@ -108,6 +115,7 @@ require([
                 }
             };
         }])
+
         ;
 
     angular.bootstrap(document, ['app']);
