@@ -8,16 +8,15 @@ define([
     'ngResource',
 ], function (angular,utility) {
     'use strict';
-
      angular.module('service', ['ngResource'])
     /**
      * 远程数据操作，方法update,insert,find,remove
      * db.table.find(query,data,callback);
      */
          .factory( 'remote', ['$resource',function($resource) {
-             function dbFactory(_type){
+             function dbFactory(_type) {
                  var obj = {},
-                     host="http://www.codeorg.com:3000/",
+                     host = "http://www.codeorg.com:3000/",
                      fns = [
                          "find",
                          "findOne",
@@ -26,21 +25,21 @@ define([
                          "remove",
                          "insert"
                      ],
-                     _db_modules = ['login','user','epaysort','cardsort','banksort','rate','card','epay','cache'];//不可用关键字module
+                     _db_modules = ['login', 'user', 'epaysort', 'cardsort', 'banksort', 'rate', 'card', 'epay', 'cache'];//不可用关键字module
 
                  var getFn = function (module) {
                      var objCmd = {};
-                     var command=(function (fn_name) {
+                     var command = (function (fn_name) {
                          return function (query, cb) {
                              if (typeof query == "function") {
                                  cb = query;
                                  query = {};
                              }
-                             query._bid=utility.bid||"";
-                             var user=utility.ls.get("user")||{};
-                             if(user.sid)query._sid=user.sid;
-                             var resource = $resource(host+_type.name+'/:m/:c', {m: '@m', c: '@c'});
-                            return resource.save({m: module, c: fn_name}, query, function (res) {
+                             query._bid = utility.bid || "";
+                             var user = utility.ls.get("user") || {};
+                             if (user.sid)query._sid = user.sid;
+                             var resource = $resource(host + _type.name + '/:m/:c', {m: '@m', c: '@c'});
+                             return resource.save({m: module, c: fn_name}, query, function (res) {
                                  cb(res);
                              });
                          }
@@ -66,11 +65,12 @@ define([
                  return obj;
              }
              return dbFactory;
-
-
          }])
          .factory('http',['remote',function(remote){
              return remote({name:"admin"});
+         }])
+         .factory('web',['remote',function(remote){
+             return remote({name:"web"});
          }])
 
     /**

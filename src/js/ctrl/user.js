@@ -107,11 +107,11 @@ define(['angular','router','utility','service','xeditable','ui.bootstrap'],
 
 
             //------------------修改密码--------------
-            $scope.pwdEdit = function(username) {
+            $scope.pwdEdit = function(email) {
                 var modalInstance = $modal.open({
                     templateUrl: '/tpl/m_user_pwd.html',
                     controller: ['$scope', '$modalInstance','http', function ($scope, $modalInstance,http) {
-                        $scope.db={username:username};
+                        $scope.db={email:email};
                         $scope.changePwd=function () {
                             if(!$scope.db)return;
                             http.user.fn("changePwd")($scope.db,function (res) {

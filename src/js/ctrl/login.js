@@ -22,7 +22,9 @@ define(['angular','router','utility','service'],
                 value=utility.trim(value);
                 if(value.length==4){
                     http.login.fn("checkcap")({id:$scope.data.cap.id,value:value},function (res) {
+                        console.log(res)
                         if(!res.err){
+                            console.log(res.err)
                             if(res.data===true) {
                                 $scope.iscap=true;
                             }else{
@@ -30,7 +32,9 @@ define(['angular','router','utility','service'],
                                 $scope.msg="验证码出错"
                             }
                         }else {
+
                             if(res.err==22){
+                                console.log(res.err)
                                 $scope.iscap=false;
                                 $scope.img = res.data.url;
                                 $scope.data.cap.id = res.data.id;

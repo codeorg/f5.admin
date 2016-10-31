@@ -115,7 +115,12 @@ require([
                 }
             };
         }])
-
+            .filter('aaa',function(){
+                return function(value){
+                   console.log("11111")
+                    return value+"111";
+                }
+            })
         ;
 
     angular.bootstrap(document, ['app']);

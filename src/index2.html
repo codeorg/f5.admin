@@ -5,7 +5,18 @@
     <title>Title</title>
     <script src="/js/lib/angular.js"></script>
 </head>
-<body>
-
+<body ng-app="app" ng-controller="fn">
+{{aa|aaa}}
+<script>
+    var app=angular.module("app",["ng"]);
+    app.controller("fn",function ($scope) {
+        $scope.aa="222"
+    }) .filter('aaa',function(){
+        return function(value){
+            console.log("11111")
+            return value+"111";
+        }
+    })
+</script>
 </body>
 </html>

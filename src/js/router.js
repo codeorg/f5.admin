@@ -26,9 +26,9 @@ define([
                         templateUrl: '/tpl/frame.html',
                         require: ['ctrl/frame'],
                         resolve:{
-                            cache:  ['$q','http',function($q,http) {
+                            cache:  ['$q','web',function($q,web) {
                                 var defer = $q.defer();
-                                http.cache.find(function (res) {
+                                web.cache.find(function (res) {
                                     defer.resolve(res.data);
                                 })
                                 return defer.promise;

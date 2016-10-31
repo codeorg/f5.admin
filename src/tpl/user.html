@@ -65,7 +65,7 @@
             商户编号
         </th>
         <th width="15%">
-            用户名
+            Email
         </th>
         <th width="10%">
             余额
@@ -84,7 +84,7 @@
             {{row.uid}}
         </td>
         <td class="center">
-            {{row.username}}
+            {{row.email}}
         </td>
         <td class="center">
             {{row.money}}
@@ -94,7 +94,7 @@
         </td>
         <td class="center">
             <a ng-click="userEdit(row.uid)" class="btn btn-primary btn-xianqing"><i class="glyphicon glyphicon-zoom-in icon-white"></i> 详情/修改</a>
-            <a ng-click="pwdEdit(row.username)" class="btn btn-danger btn-mima"><i class="glyphicon glyphicon-th"></i>密码</a>
+            <a ng-click="pwdEdit(row.email)" class="btn btn-danger btn-mima"><i class="glyphicon glyphicon-th"></i>密码</a>
             <a ng-show="row.status==1" ng-click="freeze(row)" class="btn btn-danger btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>冻结该商户</a>
             <a ng-show="row.status==-1" ng-click="unfreeze(row)" class="btn btn-default btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>解冻该商户</a>
             <a ng-click="rate(row)" class="btn btn-success btn-dongjie"><i class="glyphicon glyphicon-edit icon-white"></i>清算比例</a>
