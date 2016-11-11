@@ -7,6 +7,7 @@ define(['angular','router','utility','service','bootstrap','xeditable'],
             var user=utility.ls.get("user");
             utility.ls.set("cardsort",cache.cardsort);
             utility.ls.set("banksort",cache.banksort);
+            utility.ls.set("epaysort",cache.epaysort);
             if(!user){
                 return $state.go('login');
             }else{

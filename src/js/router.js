@@ -29,6 +29,7 @@ define([
                             cache:  ['$q','web',function($q,web) {
                                 var defer = $q.defer();
                                 web.cache.find(function (res) {
+                                    console.log(res)
                                     defer.resolve(res.data);
                                 })
                                 return defer.promise;
@@ -44,7 +45,7 @@ define([
                         require: ['ctrl/category_url']
                     }))
                 ;
-                   angular.forEach( ['def','cardsort','banksort','epaysort','user','auth','epay','card'],function(item){
+                   angular.forEach( ['def','cardsort','banksort','epay','user','auth','epaysort','card','withdraw_auth','withdraw_log'],function(item){
                        $stateProvider.state('user.'+item, load({
                            url: '/'+item,
                            templateUrl: '/tpl/'+item+'.html',

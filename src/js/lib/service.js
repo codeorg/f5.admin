@@ -25,7 +25,7 @@ define([
                          "remove",
                          "insert"
                      ],
-                     _db_modules = ['login', 'user', 'epaysort', 'cardsort', 'banksort', 'rate', 'card', 'epay', 'cache'];//不可用关键字module
+                     _db_modules = ['login', 'user', 'epaysort', 'cardsort', 'banksort', 'rate', 'card', 'epay', 'cache','withdraw'];//不可用关键字module
 
                  var getFn = function (module) {
                      var objCmd = {};
@@ -178,7 +178,14 @@ define([
              return function(value){
                  var arr=utility.ls.get("cardsort");
                  var o=utility.find(arr,{id:value});
-                 console.log(utility.sort({b:1,a:2,c:3}))
+                 if(!o) return "非法数据:"+value;
+                 return o.name;
+             }
+         })
+         .filter('epaysort',function(){
+             return function(value){
+                 var arr=utility.ls.get("epaysort");
+                 var o=utility.find(arr,{id:value});
                  if(!o) return "非法数据:"+value;
                  return o.name;
              }

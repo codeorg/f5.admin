@@ -23,6 +23,10 @@ require([
             $rootScope.$on('$stateChangeStart', function (event, next, current, $scope) {
 
                 var userMenus = {
+                    withdraw: {
+                        "withdraw_auth": "提现审核",
+                        "withdraw_log": "提现已处理记录"
+                    },
                     pay: {
                         "epay": "电子支付查询",
                         "card": "卡类支付查询"

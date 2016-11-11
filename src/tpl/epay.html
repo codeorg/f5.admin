@@ -1,0 +1,218 @@
+<style>
+    *{
+        outline:none;
+        -moz-outline:none;
+    }
+    #mian_table  td{vertical-align:middle;}
+    #search_table  td{vertical-align:middle;}
+</style>
+
+
+
+<table id="search_table" class="table table-striped font_12">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+            商户ID：
+        </td>
+        <td class="center">
+            <input type="text" ng-model="query.partner" class="form-control wid200" >
+        </td>
+        <td>
+            平台订单号：
+        </td>
+        <td>
+            <input type="text" ng-model="query.cid" class="form-control wid200" placeholder="平台订单号">
+        </td>
+        <td>
+            商户订单号：
+        </td>
+        <td>
+            <input type="text" ng-model="query.order_no"class="form-control wid200" placeholder="商户订单号">
+        </td>
+    </tr>
+    <tr>
+        <td class="center">
+            选择卡种：
+        </td>
+        <td class="center">
+            <select class="form-control" ng-model="query.epay_type">
+                <option value="">所有通道</option>
+                <option ng-repeat="ep in eps" value="{{ep.id}}">{{ep.name}}</option>
+            </select>
+        </td>
+        <td class="center">
+            支付状态：
+        </td>
+        <td class="center">
+            <select class="form-control" ng-model="query.trade_status">
+                <option value="1">成功</option>
+                <option value="0">失败</option>
+            </select>
+        </td>
+        <td class="center">
+            通知状态：
+        </td>
+        <td class="center">
+            <select class="form-control" ng-model="query.notify_status">
+                <option value="1">成功</option>
+                <option value="0">失败</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td class="center">
+            选择时间：
+        </td>
+        <td class="center">
+            <select class="form-control" ng-model="query.time">
+                <option value="0">按下单时间</option>
+                <option value="1">按支付时间</option>
+            </select>
+        </td>
+        <td>
+            开始时间：
+        </td>
+        <td>
+            <p class="input-group" tooltip-placement="top" >
+                <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="dtFrom"
+                       is-open="fromOpened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="openFrom($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </p>
+        </td>
+        <td>
+            结束时间：
+        </td>
+        <td>
+            <p class="input-group" tooltip-placement="top" >
+                <input type="text" class="form-control" datepicker-popup="yyyy-MM-dd" ng-model="dtTo"
+                       is-open="toOpened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)"  close-text="Close" />
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-primary" ng-click="openTo($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                         </span>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+        </td>
+        <td colspan="7">
+            <button ng-click="search()" type="button" class="btn btn-primary">筛选</button>
+            <button type="button" class="btn btn-primary">导出</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<ul class="breadcrumb alert alert-info">
+    <li><i class="glyphicon glyphicon-book mar_r5"></i>
+        <span>订单金额合计：</span>
+        <strong style="color:#FC491E;font-size: 19px;font-weight: 400" class="ng-binding">￥{{total_fee|money}}
+            <span style="color:#FC491E;font-size: 12px" class="ng-binding">元</span>
+        </strong>
+    </li>
+    <li><i class="glyphicon glyphicon-book mar_r5"></i>
+        <span>手续费合计：</span>
+        <strong style="color:#FC491E;font-size: 19px;font-weight: 400" class="ng-binding">￥{{service_fee|money}}
+            <span style="color:#FC491E;font-size: 12px" class="ng-binding">元</span>
+        </strong>
+    </li>
+    <li><i class="glyphicon glyphicon-book mar_r5"></i>
+        <span>实收金额合计：</span>
+        <strong style="color:#FC491E;font-size: 19px;font-weight: 400" class="ng-binding">￥{{fact_fee|money}}
+            <span style="color:#FC491E;font-size: 12px" class="ng-binding">元</span>
+        </strong>
+    </li>
+</ul>
+
+<table id="mian_table" class="table table-striped font_12">
+    <thead>
+    <tr>
+        <th>
+            商户编号
+        </th>
+        <th>
+            平台/商户订单号
+        </th>
+        <th>
+            下单时间
+        </th>
+        <th>
+            支付时间
+        </th>
+        <th>
+            订单金额
+        </th>
+        <th>
+            手续费
+        </th>
+        <th>
+            实收金额
+        </th>
+        <th>
+            支付方式
+        </th>
+        <th>
+            订单状态
+        </th>
+        <th>
+            订单通知
+        </th>
+
+        <th>
+            补发通知
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="row in rows">
+        <td class="center">
+            {{row.partner}}
+        </td>
+        <td class="center">
+          {{row.cid}}<br>{{row.order_no}}
+        </td>
+        <td class="center">
+            {{row.time|datetime}}
+        </td>
+        <td class="center">
+            {{row.trade_time|datetime}}
+        </td>
+        <td class="center">
+            <span class="label-success label label-default">{{row.total_fee|money}}</span>
+        </td>
+        <td class="center">
+            <span class="label-success label label-default">{{row.service_fee|money}}</span>
+        </td>
+        <td class="center">
+            <span class="label-success label label-default">{{row.fact_fee|money}}</span>
+        </td>
+        <td class="center">
+            {{row.epay_type|cardsort}}
+        </td>
+        <td class="center">
+            {{row.trade_status |paystatus}}
+        </td>
+        <td class="center">
+            {{row.notify_status |paystatus}}
+        </td>
+        <td class="center">
+            <a ng-click="notify()" class="btn btn-primary btn-mima"><i class="glyphicon glyphicon-zoom-in icon-white"></i> 成功通知</a>
+        </td>
+    </tr>
+
+
+
+    </tbody>
+</table>
+
+
+
+
+
+
+<pagination total-items="page.count" ng-change="pageChanged()" direction-links="false"  items-per-page="page.pageSize" ng-model="page.pageNo" max-size="page.maxSize"  class="pagination-sm" boundary-links="true" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+

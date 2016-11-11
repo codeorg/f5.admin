@@ -34,7 +34,7 @@
 
                     <td >
                         <span ng-if="row.id!='BANK'" editable-select="row.sp" e-name="sp" e-form="rowform" e-ng-options="s.value as s.text for s in sps">
-                          {{ row.sp}}
+                          {{ row.sp_request}}
                         </span>
 
                         <button ng-if="row.id=='BANK'" ng-click="goBankSort()" type="submit"  class="btn btn-primary btn-sm">

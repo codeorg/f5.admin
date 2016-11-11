@@ -6,6 +6,7 @@ define(['angular','router','utility','service'],
 
             $scope.rows=[];
             http.epaysort.find(function (res) {
+                console.log(res)
                 $scope.rows=res.data;
             })
 
